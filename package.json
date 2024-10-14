@@ -6,7 +6,7 @@
   "scripts": {
     "commit": "cz",
     "prepare": "husky",
-    "test": ""
+    "plop": "plop"
   },
   "keywords": [],
   "author": "Fabio Zendhi Nagao",
@@ -16,11 +16,15 @@
     "@commitlint/config-conventional": "^19.2.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^9.0.11"
+    "husky": "^9.0.11",
+    "plop": "^4.0.1"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "ini": "^5.0.0"
   }
 }

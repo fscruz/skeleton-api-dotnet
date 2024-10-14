@@ -1,0 +1,19 @@
+services:
+  {{DOCKER_DB_CONTAINER_NAME}}.test:
+    build:
+      context: ../..
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: {{DOCKER_DB_CONTAINER_NAME}}.test
+    networks:
+      - {{DOCKER_NETWORK}}.test
+    volumes:
+      - {{DOCKER_DB_CONTAINER_NAME}}.test.dbdata:/var/opt/mssql
+      - ../../src/database/db-migration.sh:/db-migration.sh
+      - ../../src/database/db-dump.sql:/db-dump.sql
+      - ../../src/database/migrations:/migrations
+
+volumes:
+  {{DOCKER_DB_CONTAINER_NAME}}.test.dbdata:
+
+networks:
+  {{DOCKER_NETWORK}}.test:

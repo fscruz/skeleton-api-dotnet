@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>87299eeb-439c-4bbf-9a7a-c5442b2fdaf4</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<DockerComposeProjectPath>..\..\docker\docker-compose.dcproj</DockerComposeProjectPath>
+	<DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="{{COMPANY_NAME}}.OpenForExtension" Version="1.1.1" />
+    <PackageReference Include="{{COMPANY_NAME}}.DotNet.Core.Infra" Version="1.1.2" />
+    <PackageReference Include="{{COMPANY_NAME}}.DotNet.Core.Middlewares" Version="1.1.2" />
+    <PackageReference Include="{{COMPANY_NAME}}.DotNet.Core.WebAPI" Version="1.1.2" />
+    <PackageReference Include="{{COMPANY_NAME}}.DotNet.Middlewares.ApiKeys" Version="1.4.4" />
+    <PackageReference Include="{{COMPANY_NAME}}.DotNet.Services.ApiKeys.InMemory" Version="2.0.2" />
+    <PackageReference Include="{{COMPANY_NAME}}.DotNet.Services.ScimV2.InMemory" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.9.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
+    <PackageReference Include="Serilog" Version="4.0.1" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\services\\{{SERVICE_NAME}}\\{{COMPANY_NAME}}.{{MICROSERVICE_NAME}}.{{SERVICE_NAME}}.Infra\\{{COMPANY_NAME}}.{{MICROSERVICE_NAME}}.{{SERVICE_NAME}}.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

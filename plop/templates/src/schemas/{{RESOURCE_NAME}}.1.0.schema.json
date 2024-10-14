@@ -1,0 +1,15 @@
+{
+  "$id": "",
+  "title": "{{RESOURCE_NAME}}",
+  "description": "Json Schema for {{RESOURCE_NAME}}",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "urn:ietf:params:scim:schemas:core:2.0:Resource"
+    },
+    {
+      "properties": {},
+      "required": []
+    }
+  ]
+}

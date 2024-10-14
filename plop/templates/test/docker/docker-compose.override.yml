@@ -1,0 +1,7 @@
+services:
+  {{DOCKER_DB_CONTAINER_NAME}}.test:
+    environment:
+     - SA_PASSWORD={{DB_SA_PASSWORD}}
+     - ACCEPT_EULA=Y
+    ports:
+      - "{{DB_PORT_TEST}}:1433"

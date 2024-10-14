@@ -1,0 +1,57 @@
+services:
+  {{DOCKER_WEBAPI_CONTAINER_NAME}}:
+    image: ${DOCKER_REGISTRY-}looplex{{DB_DATABASE}}webapi
+    container_name: {{DOCKER_WEBAPI_CONTAINER_NAME}}
+    build:
+      context: ../.
+      dockerfile: {{COMPANY_NAME}}.{{MICROSERVICE_NAME}}.WebApi/Dockerfile
+    environment:
+      DbServer: "{{DOCKER_DB_CONTAINER_NAME}}"
+      DbPort: "{{DB_PORT}}"
+      DbUser: "{{DB_USER}}"
+      Password: "{{DB_PASSWORD}}"
+      Database: "{{DB_DATABASE}}"
+      Serilog__MinimumLevel__Default: "Verbose"
+      Serilog__MinimumLevel__Override__Microsoft: "Verbose"
+      Serilog__MinimumLevel__Override__System: "Verbose"
+      Serilog__Enrich__0: "FromLogContext"
+      Serilog__Enrich__1: "WithMachineName"
+      Serilog__Enrich__2: "WithProcesssId"
+      Serilog__Enrich__3: "WithThreadId"
+      Serilog__Enrich__4: "WithExceptionDetails"
+      Serilog__WriteTo__0__Name: "Async"
+      Serilog__WriteTo__0__Args__configure__0__Name: "Console"
+      TokenExpirationTimeInMinutes: {{ENV_TOKEN_EXPIRATION_TIME_IN_MINUTES}}
+      OicdAudience: {{ENV_OICD_AUDIENCE}}
+      OicdIssuer: {{ENV_OICD_ISSUER}}
+      OicdTenantId: {{ENV_OICD_TENANT_ID}}
+      OicdUserInfoEndpoint: {{ENV_OICD_ISSUER}}
+      Audience: {{ENV_AUDIENCE}}
+      Issuer: {{ENV_ISSUER}}
+      PublicKey: {{{ENV_PUBLIC_KEY}}}
+      PrivateKey: {{ENV_PRIVATE_KEY}}
+      ClientSecretByteLength: {{ENV_CLIENT_SECRET_BYTE_LENGTH}}
+      ClientSecretDigestCost: {{ENV_CLIENT_SECRET_DIGEST_COST}}
+    depends_on:
+      - {{DOCKER_DB_CONTAINER_NAME}}
+    networks:
+      - {{DOCKER_NETWORK}}
+    volumes:
+      - ../schemas:/schemas
+    
+  {{DOCKER_DB_CONTAINER_NAME}}:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: {{DOCKER_DB_CONTAINER_NAME}}
+    networks:
+      - {{DOCKER_NETWORK}}
+    volumes:
+      - {{DOCKER_DB_CONTAINER_NAME}}.dbdata:/var/opt/mssql
+      - ../database/db-migration.sh:/db-migration.sh
+      - ../database/db-dump.sql:/db-dump.sql
+      - ../database/migrations:/migrations
+
+volumes:
+  {{DOCKER_DB_CONTAINER_NAME}}.dbdata:
+
+networks:
+  {{DOCKER_NETWORK}}:

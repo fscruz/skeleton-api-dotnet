@@ -6,7 +6,8 @@
   "scripts": {
     "commit": "cz",
     "prepare": "husky",
-    "plop": "plop"
+    "plop": "plop",
+    "replacer": "node replacer/templates-generator.mjs"
   },
   "keywords": [],
   "author": "Fabio Zendhi Nagao",

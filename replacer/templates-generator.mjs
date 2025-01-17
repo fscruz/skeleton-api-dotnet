@@ -1,0 +1,114 @@
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
+import readline from 'readline';
+
+// Setup output directory
+const outputDir = path.resolve('plop/templates');
+
+const inputDir = process.argv[2] || path.resolve(os.homedir() + '/projects/looplex/sample-api-dotnet/');
+
+// Ensure the input directory exists
+if (!fs.existsSync(inputDir)) {
+  console.error(`Input directory not found: ${inputDir}`);
+  process.exit(1);
+}
+
+// Ensure the output directory exists
+if (!fs.existsSync(outputDir)) {
+  console.error(`Output directory not found: ${outputDir}`);
+  process.exit(1);
+}
+
+const webApiConfig = path.resolve('plop/webapi.config.ini');
+const webApiSampleConfig = path.resolve('plop/webapi.config.sample.ini');
+
+// Prompt the user to confirm clearing the output directory
+console.log(`Output directory: ${outputDir}`);
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+function promptUser(question) {
+  return new Promise((resolve) => rl.question(question, resolve));
+}
+
+async function main() {
+  const answer = (await promptUser('Do you want to remove? (default n/N): ')).trim().toLowerCase();
+  rl.close();
+
+  if (answer.toLowerCase() !== 'y' && answer.toLowerCase() !== 'yes') {
+    console.log('Operation canceled. Exiting script.');
+    process.exit(1);
+  }
+
+  fs.readdirSync(outputDir).forEach((file) => {
+    const filePath = path.join(outputDir, file);
+    if (fs.lstatSync(filePath).isDirectory()) {
+      fs.rmSync(filePath, { recursive: true });
+    } else {
+      fs.unlinkSync(filePath);
+    }
+  });
+
+  console.log('Output directory cleared.');
+
+  const scriptsPath = 'replacer/scripts';
+  fs.readdirSync(scriptsPath).forEach((dir) => {
+    if (fs.lstatSync(path.resolve(scriptsPath, dir)).isDirectory()) {
+      const configFile = path.resolve(outputDir, `${dir}.config.ini`)
+      fs.writeFileSync(configFile, '', { flag: 'w' });
+
+      const sampleConfigFile = path.resolve(outputDir, `${dir}.config.sample.ini`)
+      fs.writeFileSync(sampleConfigFile, '', { flag: 'w' });
+
+      fs.readdirSync(path.resolve(scriptsPath, dir)).forEach(async (file) => {
+        const scriptPath = path.resolve(scriptsPath, dir, file);
+        const replacer = await import(scriptPath); // Dynamically import the script
+
+        const filePath = path.resolve(inputDir, replacer.file);
+        const outputFilePath = path.resolve(outputDir, dir, replacer.outputFile);
+        var dirPath = path.dirname(outputFilePath);
+        fs.mkdirSync(dirPath, { recursive: true });
+        var replaces = replacer.default(filePath, outputFilePath);
+
+        appendToConfig(configFile, replaces, getConfigAppendLine);
+        appendToConfig(sampleConfigFile, replaces, getConfigSampleAppendLine);
+      });
+    }
+  });
+}
+
+const configSets = {};
+function appendToConfig(configFilePath, replaces, appendLineFunc) {
+  if (!configSets[configFilePath])
+    configSets[configFilePath] = new Set();
+  const set = configSets[configFilePath];
+  replaces.forEach(replace => {
+    if (!replace.replace)
+      return;
+    if (!set.has(replace.replace)) {
+      set.add(replace.replace);
+      const appendLine = appendLineFunc(replace);
+      fs.appendFileSync(configFilePath, appendLine, 'utf8');
+      console.log(`Appended ${replace.replace} key to file: ${configFilePath}`);
+    } else {
+      console.log(`${replace.replace} key already exists in file: ${configFilePath}`);
+    }
+  });
+}
+
+function getConfigAppendLine(replace) {
+  return `${replace.replace}=${replace.replace}\n`
+}
+
+function getConfigSampleAppendLine(replace) {
+  return `${replace.replace}=${replace.original}\n`
+}
+
+main().catch((error) => {
+  console.error('Error:', error);
+  process.exit(1);
+});

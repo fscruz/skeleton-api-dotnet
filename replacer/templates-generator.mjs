@@ -68,7 +68,6 @@ async function main() {
       fs.readdirSync(path.resolve(scriptsPath, dir)).forEach(async (file) => {
         let scriptPath = path.resolve(scriptsPath, dir, file);
         scriptPath = pathToFileURL(scriptPath);
-        console.log(scriptPath)
         const replacer = await import(scriptPath); // Dynamically import the script
 
         const filePath = path.resolve(inputDir, replacer.file);

@@ -20,7 +20,7 @@ export default function (filePath, outputFilePath) {
     {
       original: 'Students',
       find: /Students/g,
-      replace: '{{RESOURCE_TYPE_NAME_PLURAL}}'
+      replace: '{{RESOURCE_TYPE_NAME_P}}'
     },
     {
       original: 'Student',
@@ -45,4 +45,4 @@ export default function (filePath, outputFilePath) {
 }
 
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Routes/Academic/StudentsRoutes.cs';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/Routes/{{SERVICE_NAME_PLURAL}}/{{RESOURCE_TYPE_NAME}}Routes.cs';
+export const outputFile = '{{WEB_API_PROJECT_NAME}}/Routes/{{SERVICE_NAME_P}}/{{RESOURCE_TYPE_NAME}}Routes.cs';

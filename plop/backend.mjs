@@ -71,7 +71,7 @@ function backendFactory(plop) {
       },
       {
         type: 'input',
-        name: 'RESOURCE_NAME_PLURAL',
+        name: 'RESOURCE_NAME_P',
         message: 'Resource Name (Plural):',
         when: (answers) => answers.configChoice === 'Answer all questions',
       },
@@ -135,7 +135,7 @@ function backendFactory(plop) {
           SERVICE_FOLDER: answers.SERVICE_FOLDER,
           RESOURCE_LOCATION: answers.RESOURCE_LOCATION,
           RESOURCE_NAME: answers.RESOURCE_NAME,
-          RESOURCE_NAME_PLURAL: answers.RESOURCE_NAME_PLURAL,
+          RESOURCE_NAME_P: answers.RESOURCE_NAME_P,
           RESOURCE_SCHEMA_VERSION: answers.RESOURCE_SCHEMA_VERSION,
           TELEMETRY_SERVICE_NAME: answers.TELEMETRY_SERVICE_NAME,
           DB_SERVER: answers.DB_SERVER,

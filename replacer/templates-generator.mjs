@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import readline from 'readline';
+import { pathToFileURL } from 'url';
 
 // Setup output directory
 const outputDir = path.resolve('plop/templates');
@@ -65,7 +66,8 @@ async function main() {
       fs.writeFileSync(sampleConfigFile, '', { flag: 'w' });
 
       fs.readdirSync(path.resolve(scriptsPath, dir)).forEach(async (file) => {
-        const scriptPath = path.resolve(scriptsPath, dir, file);
+        let scriptPath = path.resolve(scriptsPath, dir, file);
+        scriptPath = pathToFileURL(scriptPath);
         const replacer = await import(scriptPath); // Dynamically import the script
 
         const filePath = path.resolve(inputDir, replacer.file);
@@ -89,7 +91,8 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
   replaces.forEach(replace => {
     if (!replace.replace)
       return;
-    if (!set.has(replace.replace)) {
+    
+    if (removeBeforeAndAfterMustaches(replace) && !set.has(replace.replace)) {
       set.add(replace.replace);
       const appendLine = appendLineFunc(replace);
       fs.appendFileSync(configFilePath, appendLine, 'utf8');
@@ -98,6 +101,16 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
       console.log(`${replace.replace} key already exists in file: ${configFilePath}`);
     }
   });
+}
+
+function removeBeforeAndAfterMustaches(replace){
+  const startIndex = replace.replace.indexOf('{{');
+  const finalIndex = replace.replace.indexOf('}}');
+  if(startIndex >= 0 && finalIndex >= 0){
+    replace.replace = replace.replace.substring(startIndex, finalIndex + 2);
+    return true
+  }
+  return false
 }
 
 function getConfigAppendLine(replace) {

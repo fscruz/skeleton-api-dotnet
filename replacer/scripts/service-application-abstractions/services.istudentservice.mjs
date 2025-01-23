@@ -7,7 +7,7 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Application.Abstractions/Services/IStudentService.cs';
-export const outputFile = '{PROJECT_PATH}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{MODULE_NAME}.Application.Abstractions/Services/I{{RESOURCE_TYPE_NAME}}Service.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.Abstractions/Services/I{{RESOURCE_TYPE_NAME}}Service.cs';
 const replaces = [
   {
     original: 'Student',

@@ -7,7 +7,7 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/QuerieHandlers/GetStudentByIdQueryHandler.cs';
-export const outputFile = '{PROJECT_PATH}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{MODULE_NAME}.Infra/Data/QueryHandlers/Get{{RESOURCE_TYPE_NAME}}ByIdQueryHandler.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/QueryHandlers/Get{{RESOURCE_TYPE_NAME}}ByIdQueryHandler.cs';
 const replaces = [
   {
       original: 'Students',

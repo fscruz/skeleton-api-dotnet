@@ -7,7 +7,7 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Ioc/AcademicDependencyContainer.cs';
-export const outputFile = '{PROJECT_PATH}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{MODULE_NAME}.Infra/Ioc/{{MODULE_NAME_CC}}DependencyContainer.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Ioc/{{MODULE_NAME_CC}}DependencyContainer.cs';
 const replaces = [
   {
       original: 'Students',

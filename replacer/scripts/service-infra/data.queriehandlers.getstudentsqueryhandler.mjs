@@ -22,12 +22,12 @@ const replaces = [
   {
       original: 'students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_CCP}}'
+      replace: '{{RESOURCE_TYPE_NAME_LCP}}'
   },
   {
     original: 'student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}'
+    replace: '{{RESOURCE_TYPE_NAME_LC}}'
   },
   {
     original: 'Looplex.DotNet.Samples',

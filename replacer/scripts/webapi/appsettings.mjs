@@ -2,5 +2,5 @@ import { copyProjectFile } from '../../utils/file-operations.mjs';
 
 export default copyProjectFile;
 
-export const file = 'src/Looplex.DotNet.Samples.WebAPI/appsettings.json';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/appsettings.json';
+export const file = 'src/Looplex.DotNet.Samples.WebApi/appsettings.json';
+export const outputFile = '{{PROJECT_NAMESPACE}}.WebApi/appsettings.json';

@@ -1,9 +1,6 @@
-import fs from 'fs';
+import { copyProjectFile } from '../../utils/file-operations.mjs';
 
-export default function (filePath, outputFilePath) {
-    fs.copyFileSync(filePath, outputFilePath);
-    return [];
-}
+export default copyProjectFile;
 
 export const file = 'src/docker/launchSettings.json';
-export const outputFile = '{{DOCKER_PROJECT_FOLDER_NAME}}/launchSettings.json';
+export const outputFile = '{{PROJECT_PATH}}/docker/launchSettings.json';

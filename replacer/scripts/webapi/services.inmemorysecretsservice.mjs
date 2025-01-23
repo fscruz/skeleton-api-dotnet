@@ -5,14 +5,14 @@ export default (filePath, outputFilePath) =>
     outputFilePath,
     patterns: replaces
   });
-
+  
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Services/InMemorySecretsService.cs';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/Services/InMemorySecretsService.cs';
+export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/Services/InMemorySecretsService.cs';
 const replaces = [
   {
     original: 'Looplex.DotNet.Samples.WebApi',
     find: /Looplex.DotNet.Samples.WebApi/g,
-    replace: '{{WEB_API_PROJECT_NAME}}'
+    replace: '{{PROJECT_NAMESPACE}}.WebApi'
   },
   {
     original: 'looplex.dotnet.samples.academic.db',

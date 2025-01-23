@@ -7,16 +7,16 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Dockerfile';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/Dockerfile';
+export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/Dockerfile';
 const replaces = [
   {
     original: 'src',
     find: /src/g,
-    replace: '{{WEB_API_PROJECT_PATH}}'
+    replace: '{{PROJECT_PATH}}'
   },
   {
     original: 'Looplex.DotNet.Samples.WebApi',
     find: /Looplex.DotNet.Samples.WebApi/g,
-    replace: '{{WEB_API_PROJECT_NAME}}'
+    replace: '{{PROJECT_NAMESPACE}}.WebApi'
   }
 ]

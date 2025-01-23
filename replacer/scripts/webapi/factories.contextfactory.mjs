@@ -7,11 +7,11 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Factories/ContextFactory.cs';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/Factories/ContextFactory.cs';
+export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/Factories/ContextFactory.cs';
 const replaces = [
   {
     original: 'Looplex.DotNet.Samples.WebApi',
     find: /Looplex.DotNet.Samples.WebApi/g,
-    replace: '{{WEB_API_PROJECT_NAME}}'
+    replace: '{{PROJECT_NAMESPACE}}.WebApi'
   }
 ]

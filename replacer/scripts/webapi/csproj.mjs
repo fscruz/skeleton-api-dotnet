@@ -7,7 +7,7 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Looplex.DotNet.Samples.WebApi.csproj';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/{{WEB_API_PROJECT_NAME}}.csproj';
+export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/{{PROJECT_NAMESPACE}}.WebApi.csproj';
 const replaces = [
   {
     find: /<ProjectReference Include="..\\Looplex.DotNet.WebApi\\Looplex.DotNet.WebApi.csproj" \/>\n/g,

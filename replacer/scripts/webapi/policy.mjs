@@ -7,7 +7,7 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/Looplex.DotNet.Samples.WebAPI/policy.csv';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/policy.csv';
+export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/policy.csv';
 const replaces = [
   {
     original: 'UserService',

@@ -7,7 +7,7 @@ export default (filePath, outputFilePath) =>
   });
 
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Program.cs';
-export const outputFile = '{{WEB_API_PROJECT_NAME}}/Program.cs';
+export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/Program.cs';
 const replaces = [
   {
     find: /using Looplex.DotNet.WebApi;\n/g,
@@ -20,7 +20,7 @@ const replaces = [
   {
     original: 'Looplex.DotNet.Samples.WebApi',
     find: /Looplex.DotNet.Samples.WebApi/g,
-    replace: '{{WEB_API_PROJECT_NAME}}'
+    replace: '{{PROJECT_NAMESPACE}}.WebApi'
   },
   {
     original: 'Student',

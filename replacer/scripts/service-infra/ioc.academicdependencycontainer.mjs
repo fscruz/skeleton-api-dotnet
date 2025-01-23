@@ -1,10 +1,4 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Ioc/AcademicDependencyContainer.cs';
 export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Ioc/{{MODULE_NAME_CC}}DependencyContainer.cs';
@@ -46,3 +40,10 @@ const replaces = [
     replace: '{{MODULE_NAME_CC}}'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });

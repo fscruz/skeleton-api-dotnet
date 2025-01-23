@@ -1,10 +1,4 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/CommandHandlers/DeleteStudentCommandHandler.cs';
 export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/CommandHandlers/Delete{{RESOURCE_TYPE_NAME}}CommandHandler.cs';
@@ -60,3 +54,10 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME_LC}}child'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });

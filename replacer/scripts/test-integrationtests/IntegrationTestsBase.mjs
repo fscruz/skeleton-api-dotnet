@@ -1,10 +1,4 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
 
 export const file = 'test/Looplex.DotNet.Samples.IntegrationTests/IntegrationTestsBase.cs';
 export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.IntegrationTests/IntegrationTestsBase.cs';
@@ -35,3 +29,11 @@ const replaces = [
     replace: '{{SERVICE_DB_PORT}}'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+    CommandProcessor.process({
+      filePath,
+      outputFilePath,
+      patterns: replaces
+    });
+  

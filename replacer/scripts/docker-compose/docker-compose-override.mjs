@@ -1,10 +1,5 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
+
 
 export const file = 'src/docker/docker-compose.override.yml';
 export const outputFile = '{{PROJECT_PATH}}/docker/docker-compose.override.yml';
@@ -25,3 +20,10 @@ const replaces = [
         replace: '{{SERVICE_DB_DOCKER_CONTAINER_NAME}}'
     }
   ];
+
+  export default (filePath, outputFilePath) => 
+    CommandProcessor.process({
+      filePath,
+      outputFilePath,
+      patterns: replaces
+    });

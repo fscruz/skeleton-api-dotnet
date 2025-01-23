@@ -1,10 +1,4 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
 
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Routes/Academic/StudentsRoutes.cs';
 export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/Routes/{{MODULE_NAME}}/{{RESOURCE_TYPE_NAME}}Routes.cs';
@@ -37,3 +31,10 @@ const replaces = [
     replace: '{{PROJECT_NAMESPACE}}.WebApi'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });

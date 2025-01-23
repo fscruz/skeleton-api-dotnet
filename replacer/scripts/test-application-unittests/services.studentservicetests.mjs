@@ -6,7 +6,7 @@ export default (filePath, outputFilePath) =>
     patterns: replaces
   });
 
-export const file = 'C:/Users/RafaeldosSantosImaka/NewGitProjects/sample-api-dotnet/test/Looplex.DotNet.Samples.Academic.Application.UnitTests/Services/StudentServiceTests.cs';
+export const file = 'test/Looplex.DotNet.Samples.Academic.Application.UnitTests/Services/StudentServiceTests.cs';
 export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.UnitTests/Services/{{RESOURCE_TYPE_NAME}}ServiceTests.cs';
 const replaces = [
   {

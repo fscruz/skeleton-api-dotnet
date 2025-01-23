@@ -1,10 +1,5 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
+
 
 export const file = 'src/docker/docker-compose.yml';
 export const outputFile = '{{PROJECT_PATH}}/docker/docker-compose.yml';
@@ -41,3 +36,10 @@ const replaces = [
         key: '{{DOCKER_NETWORK}}',
     },
   ];
+
+  export default (filePath, outputFilePath) => 
+    CommandProcessor.process({
+      filePath,
+      outputFilePath,
+      patterns: replaces
+    });

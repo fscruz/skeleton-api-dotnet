@@ -1,10 +1,4 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
   
 export const file = 'src/Looplex.DotNet.Samples.WebApi/Services/InMemorySecretsService.cs';
 export const outputFile = '{{PROJECT_PATH}}/{{PROJECT_NAMESPACE}}.WebApi/Services/InMemorySecretsService.cs';
@@ -40,3 +34,10 @@ const replaces = [
     replace: '{{SERVICE_DB_PASSWORD}}'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });

@@ -1,7 +1,7 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
 
-export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/Mappers/StudentMapper.cs';
-export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/Mappers/{{RESOURCE_TYPE_NAME}}Mapper.cs';
+export const file = 'test/Looplex.DotNet.Samples.Academic.Infra.IntegrationTests/Data/Commands/UpdateStudentCommandHandlerTest.cs';
+export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra.IntegrationTests/Data/Commands/Update{{RESOURCE_TYPE_NAME}}CommandHandlerTest.cs';
 const replaces = [
   {
       original: 'Students',
@@ -32,6 +32,31 @@ const replaces = [
     original: 'Academic',
     find: /Academic/g,
     replace: '{{MODULE_NAME}}'
+  },
+  {
+    original: '',
+    find: /QuerieHandlers/g,
+    replace: 'QueryHandlers'
+  },
+  {
+    original: 'Projects',
+    find: /Projects/g,
+    replace: '{{RESOURCE_TYPE_NAME}}Children'
+  },
+  {
+    original: 'Project',
+    find: /Project/g,
+    replace: '{{RESOURCE_TYPE_NAME}}Child'
+  },
+  {
+    original: 'projects',
+    find: /projects/g,
+    replace: '{{RESOURCE_TYPE_NAME_CC}}Children'
+  },
+  {
+    original: 'project',
+    find: /project/g,
+    replace: '{{RESOURCE_TYPE_NAME_CC}}Child'
   }
 ]
 

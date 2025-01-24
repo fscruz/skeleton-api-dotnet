@@ -1,13 +1,7 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Domain/Queries/GetStudentByIdQuery.cs';
-export const outputFile = '{PROJECT_PATH}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{MODULE_NAME}.Domain/Queries/Get{{RESOURCE_TYPE_NAME}}ByIdQuery.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Domain/Queries/Get{{RESOURCE_TYPE_NAME}}ByIdQuery.cs';
 const replaces = [
   {
       original: 'Students',
@@ -30,3 +24,10 @@ const replaces = [
     replace: '{{MODULE_NAME}}'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });

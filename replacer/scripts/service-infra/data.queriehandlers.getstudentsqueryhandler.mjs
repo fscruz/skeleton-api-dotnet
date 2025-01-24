@@ -1,13 +1,7 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/QuerieHandlers/GetStudentsQueryHandler.cs';
-export const outputFile = '{PROJECT_PATH}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{MODULE_NAME}.Infra/Data/QueryHandlers/Get{{RESOURCE_TYPE_NAME_P}}QueryHandler.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/QueryHandlers/Get{{RESOURCE_TYPE_NAME_P}}QueryHandler.cs';
 const replaces = [
   {
       original: 'Students',
@@ -22,12 +16,12 @@ const replaces = [
   {
       original: 'students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_CCP}}'
+      replace: '{{RESOURCE_TYPE_NAME_LCP}}'
   },
   {
     original: 'student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}'
+    replace: '{{RESOURCE_TYPE_NAME_LC}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -65,3 +59,10 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME_LC}}child'
   }
 ]
+
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });

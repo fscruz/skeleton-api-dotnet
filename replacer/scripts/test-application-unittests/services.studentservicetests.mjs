@@ -1,7 +1,13 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
+export default (filePath, outputFilePath) => 
+  CommandProcessor.process({
+    filePath,
+    outputFilePath,
+    patterns: replaces
+  });
 
-export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/QuerieHandlers/GetStudentByIdQueryHandler.cs';
-export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/QueryHandlers/Get{{RESOURCE_TYPE_NAME}}ByIdQueryHandler.cs';
+export const file = 'test/Looplex.DotNet.Samples.Academic.Application.UnitTests/Services/StudentServiceTests.cs';
+export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.UnitTests/Services/{{RESOURCE_TYPE_NAME}}ServiceTests.cs';
 const replaces = [
   {
       original: 'Students',
@@ -16,12 +22,12 @@ const replaces = [
   {
       original: 'students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_LCP}}'
+      replace: '{{RESOURCE_TYPE_NAME_CCP}}'
   },
   {
     original: 'student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}'
+    replace: '{{RESOURCE_TYPE_NAME_CC}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -32,11 +38,16 @@ const replaces = [
     original: 'Academic',
     find: /Academic/g,
     replace: '{{MODULE_NAME}}'
+  }
+  ,
+  {
+    original: 'academic',
+    find: /academic/g,
+    replace: '{{MODULE_NAME_CC}}'
   },
   {
-    original: '',
-    find: /QuerieHandlers/g,
-    replace: 'QueryHandlers'
+    original: 'test',
+    replace: '{{TESTPROJECT_PATH}}'
   },
   {
     original: 'Projects',
@@ -59,10 +70,3 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME_LC}}child'
   }
 ]
-
-export default (filePath, outputFilePath) => 
-  CommandProcessor.process({
-    filePath,
-    outputFilePath,
-    patterns: replaces
-  });

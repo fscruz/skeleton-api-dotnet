@@ -1,7 +1,6 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
 
-
-const replaces = [
+  const replaces = [
   {
     original: 'Looplex.DotNet.Samples',
     find: /Looplex.DotNet.Samples/g,
@@ -16,12 +15,16 @@ const replaces = [
     original: 'academic',
     find: /academic/g,
     replace: '{{MODULE_NAME_CC}}'
-  }
+  },
+  {
+    original: 'src',
+    find: /src/g,
+    replace: '{{PROJECT_PATH}}'
+}
 ]
 
-export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Application/Looplex.DotNet.Samples.Academic.Application.csproj';
-export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.csproj';
-
+export const file = 'test/Looplex.DotNet.Samples.Academic.Application.UnitTests/Looplex.DotNet.Samples.Academic.Application.UnitTests.csproj';
+export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.UnitTests/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.UnitTests.csproj';
 
 export default (filePath, outputFilePath) => 
   CommandProcessor.process({

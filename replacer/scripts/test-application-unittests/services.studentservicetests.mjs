@@ -5,6 +5,11 @@ export const file = 'test/Looplex.DotNet.Samples.Academic.Application.UnitTests/
 export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.UnitTests/Services/{{RESOURCE_TYPE_NAME}}ServiceTests.cs';
 const replaces = [
   {
+    original: '\\{{',
+    find: /{{/g,
+    replace: '\\{{'
+  },
+  {
       original: 'Students',
       find: /Students/g,
       replace: '{{RESOURCE_TYPE_NAME_P}}'

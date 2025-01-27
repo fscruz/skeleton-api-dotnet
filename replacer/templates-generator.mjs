@@ -3,6 +3,7 @@ import fs from 'fs';
 import os from 'os';
 import readline from 'readline';
 import { pathToFileURL } from 'url';
+import { getConstant }  from '../constants.mjs';
 
 // Setup output directory
 const outputDir = path.resolve('plop/templates');
@@ -57,6 +58,8 @@ async function main() {
   console.log('Output directory cleared.');
 
   const scriptsPath = 'replacer/scripts';
+  fs.writeFileSync(getConstant('ALLCONFIGPATH'), '', { flag: 'w' } );
+ 
   fs.readdirSync(scriptsPath).forEach((dir) => {
     if (fs.lstatSync(path.resolve(scriptsPath, dir)).isDirectory()) {
       const configFile = path.resolve(outputDir, `${dir}.config.ini`)
@@ -76,6 +79,7 @@ async function main() {
         fs.mkdirSync(dirPath, { recursive: true });
         var replaces = replacer.default(filePath, outputFilePath);
 
+        appendToConfig(getConstant('ALLCONFIGPATH'), replaces, getConfigSampleAppendLine)
         appendToConfig(configFile, replaces, getConfigAppendLine);
         appendToConfig(sampleConfigFile, replaces, getConfigSampleAppendLine);
       });

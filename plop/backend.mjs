@@ -1,5 +1,6 @@
 import { readFileSync, rm } from 'node:fs'
 import ini from 'ini'
+import  { getConstant }   from '../constants.mjs';
 
 function backendFactory(plop) {
   let outputDir = './plop/output';
@@ -123,7 +124,7 @@ function backendFactory(plop) {
 
       if (answers.configChoice === 'Use sample config') {
         // Load the sample config from the sample-config.ini file
-        const sampleConfig = ini.parse(readFileSync('plop/config.sample.ini', 'utf-8'))
+        const sampleConfig = ini.parse(readFileSync(getConstant('ALLCONFIGPATH'), 'utf-8'))
         configData = { ...sampleConfig }
       } else {
         // Use the answers from the prompts
@@ -169,16 +170,22 @@ function backendFactory(plop) {
  function setPlopHelpers(plop){
 
   plop.setHelper('UC', function (text) {
+    // if(text && text != '')
       return text.toUpperCase();
+
+    return text
   });
 
   plop.setHelper('LC', function (text) {
+     if(text && text != '')
       return text.toLowerCase();
+
+    return text
   });
 
   plop.setHelper('CC', function (text) {
-      if(text && text != '')
-      {
+       if(text && text != '')
+       {
           if(text.length > 1)
           {
               let firstLetter = text.substring(0,1);
@@ -187,7 +194,7 @@ function backendFactory(plop) {
               return firstLetter + rest;
           }
           return text.toLowerCase();
-      }
+       }
       return text;
   });
 

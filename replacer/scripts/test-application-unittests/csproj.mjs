@@ -1,10 +1,15 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
 
-  const replaces = [
+  const replaces = [   
+  {
+    original: 'services\\\\',
+    find: /services/g,
+    replace: 'services\\' 
+  },
   {
     original: 'Looplex.DotNet.Samples',
     find: /Looplex.DotNet.Samples/g,
-    replace: '{{PROJECT_NAMESPACE}}'
+    replace: '\\{{PROJECT_NAMESPACE}}'
   },
   {
     original: 'Academic',
@@ -12,15 +17,16 @@ import { CommandProcessor } from '../../utils/commandProcessor.mjs';
     replace: '{{MODULE_NAME}}'
   },
   {
-    original: 'academic',
+    original: 'Academic',
     find: /academic/g,
     replace: '{{CC MODULE_NAME}}'
   },
   {
     original: 'src',
     find: /src/g,
-    replace: '{{PROJECT_PATH}}'
+    replace: '\\{{PROJECT_PATH}}'
 }
+
 ]
 
 export const file = 'test/Looplex.DotNet.Samples.Academic.Application.UnitTests/Looplex.DotNet.Samples.Academic.Application.UnitTests.csproj';

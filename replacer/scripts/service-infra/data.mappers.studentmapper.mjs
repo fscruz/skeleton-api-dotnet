@@ -14,12 +14,12 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}'
   },
   {
-      original: 'students',
+      original: 'Students',
       find: /students/g,
       replace: '{{CC RESOURCE_TYPE_NAMEP}}'
   },
   {
-    original: 'student',
+    original: 'Student',
     find: /student/g,
     replace: '{{CC RESOURCE_TYPE_NAME}}'
   },

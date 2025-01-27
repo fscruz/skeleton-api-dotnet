@@ -6,7 +6,7 @@ const replaces = [
 {
   original: 'Looplex.DotNet.Samples',
   find: /Looplex.DotNet.Samples/g,
-  replace: '{{PROJECT_NAMESPACE}}'
+  replace: '\\{{PROJECT_NAMESPACE}}'
 },
 {
   original: 'Academic',

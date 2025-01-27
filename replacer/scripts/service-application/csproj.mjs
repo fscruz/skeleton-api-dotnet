@@ -5,7 +5,7 @@ const replaces = [
   {
     original: 'Looplex.DotNet.Samples',
     find: /Looplex.DotNet.Samples/g,
-    replace: '{{PROJECT_NAMESPACE}}'
+    replace: '\\{{PROJECT_NAMESPACE}}'
   },
   {
     original: 'Academic',
@@ -13,10 +13,11 @@ const replaces = [
     replace: '{{MODULE_NAME}}'
   },
   {
-    original: 'academic',
+    original: 'Academic',
     find: /academic/g,
     replace: '{{CC MODULE_NAME}}'
   }
+
 ]
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Application/Looplex.DotNet.Samples.Academic.Application.csproj';

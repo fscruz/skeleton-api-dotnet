@@ -96,7 +96,7 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
     if (!replace.replace)
       return;
     
-    if (removeBeforeAndAfterMustaches(replace) && !set.has(replace.replace)) {
+    if (removeBeforeAndAfterMustaches(replace) && leaveOnlyConfig(replace) && !set.has(replace.replace)) {
       set.add(replace.replace);
       const appendLine = appendLineFunc(replace);
       fs.appendFileSync(configFilePath, appendLine, 'utf8');
@@ -106,17 +106,26 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
     }
   });
 }
-
+//also removes mustaches
 function removeBeforeAndAfterMustaches(replace){
   const startIndex = replace.replace.indexOf('{{');
   const finalIndex = replace.replace.indexOf('}}');
   if(startIndex >= 0 && finalIndex >= 0){
-    replace.replace = replace.replace.substring(startIndex, finalIndex + 2);
+    replace.replace = replace.replace.substring(startIndex +2 , finalIndex);
     return true
   }
   return false
 }
+//config is the last word splited by spaces
+function leaveOnlyConfig(replace){
+  if(replace && replace.replace)
+  {
+    const splited = replace.replace.split(' ');
 
+    replace.replace = splited[splited.length - 1];
+  }
+  return true;
+}
 function getConfigAppendLine(replace) {
   return `${replace.replace}=${replace.replace}\n`
 }

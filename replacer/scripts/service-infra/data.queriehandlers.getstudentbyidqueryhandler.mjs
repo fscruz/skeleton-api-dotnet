@@ -14,12 +14,12 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}'
   },
   {
-      original: 'students',
+      original: 'Students',
       find: /students/g,
       replace: '{{LC RESOURCE_TYPE_NAME_P}}'
   },
   {
-    original: 'student',
+    original: 'Student',
     find: /student/g,
     replace: '{{LC RESOURCE_TYPE_NAME}}'
   },
@@ -49,7 +49,7 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}Child'
   },
   {
-    original: 'projects',
+    original: 'Projects',
     find: /projects/g,
     replace: '{{LC RESOURCE_TYPE_NAME}}children'
   },

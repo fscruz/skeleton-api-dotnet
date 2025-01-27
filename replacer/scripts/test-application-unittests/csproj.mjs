@@ -14,7 +14,7 @@ import { CommandProcessor } from '../../utils/commandProcessor.mjs';
   {
     original: 'academic',
     find: /academic/g,
-    replace: '{{MODULE_NAME_CC}}'
+    replace: '{{CC MODULE_NAME}}'
   },
   {
     original: 'src',

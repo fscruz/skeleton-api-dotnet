@@ -1,7 +1,7 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/CommandHandlers/DeleteStudentCommandHandler.cs';
-export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/CommandHandlers/Delete{{RESOURCE_TYPE_NAME}}CommandHandler.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{CC MODULE_NAME}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/CommandHandlers/Delete{{RESOURCE_TYPE_NAME}}CommandHandler.cs';
 const replaces = [
   {
       original: 'Students',
@@ -16,12 +16,12 @@ const replaces = [
   {
       original: 'students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_LCP}}'
+      replace: '{{LC RESOURCE_TYPE_NAME_P}}'
   },
   {
     original: 'student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}'
+    replace: '{{LC RESOURCE_TYPE_NAME}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -46,12 +46,12 @@ const replaces = [
   {
     original: 'projects',
     find: /projects/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}children'
+    replace: '{{LC RESOURCE_TYPE_NAME}}children'
   },
   {
     original: 'project',
     find: /project/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}child'
+    replace: '{{LC RESOURCE_TYPE_NAME}}child'
   }
 ]
 

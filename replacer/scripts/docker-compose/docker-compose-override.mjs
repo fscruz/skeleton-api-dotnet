@@ -7,12 +7,12 @@ const replaces = [
     {
         original: 'looplex.dotnet.samples',
         find: /looplex.dotnet.samples/g,
-        replace: '{{PROJECT_NAMESPACE_LC}}'
+        replace: '{{LC PROJECT_NAMESPACE}}'
     },
     {
         original: 'academic',
         find: /academic/g,
-        replace: '{{MODULE_NAME_LC}}'
+        replace: '{{LC MODULE_NAME}}'
     },
     {
         original: '8080',

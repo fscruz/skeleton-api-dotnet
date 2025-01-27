@@ -5,19 +5,39 @@ export const file = 'src/docker/docker-compose.override.yml';
 export const outputFile = '{{PROJECT_PATH}}/docker/docker-compose.override.yml';
 const replaces = [
     {
-        original: 'looplex.dotnet.samples.webapi',
-        find: /looplex.dotnet.samples.webapi/g,
-        replace: '{{WEBAPI_DOCKER_CONTAINER_NAME}}'
+        original: 'looplex.dotnet.samples',
+        find: /looplex.dotnet.samples/g,
+        replace: '{{PROJECT_NAMESPACE_LC}}'
     },
     {
-        original: 'looplex.dotnet.samples.routing.db',
-        find: /looplex.dotnet.samples.routing.db/g,
-        replace: '{{ROUTING_DB_DOCKER_CONTAINER_NAME}}'
+        original: 'academic',
+        find: /academic/g,
+        replace: '{{MODULE_NAME_LC}}'
     },
     {
-        original: 'looplex.dotnet.samples.academic.db',
-        find: /looplex.dotnet.samples.academic.db/g,
-        replace: '{{SERVICE_DB_DOCKER_CONTAINER_NAME}}'
+        original: '8080',
+        find: /8080/g,
+        replace: '{{WEBAPI_CONTAINER_PORT_HTTP}}'
+    },
+    {
+        original: '8443',
+        find: /8443/g,
+        replace: '{{WEBAPI_CONTAINER_PORT_HTTPS}}'
+    },
+    {
+        original: '1433',
+        find: /1433/g,
+        replace: '{{ROUTING_DB_CONTAINER_PORT}}'
+    },
+    {
+        original: '1435',
+        find: /1435/g,
+        replace: '{{SERVICE_DB_CONTAINER_PORT}}'
+    },
+    {
+        original: '!ooplex_D0tNet!s@',
+        find: /!ooplex_D0tNet!s@/g,
+        replace: '{{SERVICE_DB_PASSWORD}}'
     }
   ];
 

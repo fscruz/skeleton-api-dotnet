@@ -5,36 +5,40 @@ export const file = 'src/docker/docker-compose.yml';
 export const outputFile = '{{PROJECT_PATH}}/docker/docker-compose.yml';
 const replaces = [
     {
-        original: 'looplex.dotnet.samples.webapi',
-        find: /looplex.dotnet.samples.webapi/g,
-        replace: '{{WEBAPI_DOCKER_CONTAINER_NAME}}'
+        original: 'looplex.dotnet.samples',
+        find: /looplex.dotnet.samples/g,
+        replace: '{{PROJECT_NAMESPACE_LC}}'
     },
     {
-        original: 'looplex.dotnet.samples.routing.db',
-        find: /looplex.dotnet.samples.routing.db/g,
-        replace: '{{ROUTING_DB_DOCKER_CONTAINER_NAME}}'
-    },
-    {
-        original: 'looplex.dotnet.samples.academic.db',
-        find: /looplex.dotnet.samples.academic.db/g,
-        replace: '{{SERVICE_DB_DOCKER_CONTAINER_NAME}}'
+        original: 'Looplex.DotNet.Samples',
+        find: /Looplex.DotNet.Samples/g,
+        replace: '{{PROJECT_NAMESPACE}}'
     },
     {
         original: 'dbdata-samples-routing',
         find: /dbdata-samples-routing/g,
-        replace: '{{ROUTING_DB_DOCKER_VOLUME}}'
+        replace: '{{ROUTING_DB_CONTAINER_VOLUME}}'
     },
     {
         original: 'dbdata-samples-academic',
         find: /dbdata-samples-academic/g,
-        replace: '{{SERVICE_DB_DOCKER_VOLUME}}'
+        replace: '{{SERVICE_DB_CONTAINER_VOLUME}}'
     },
     {
-        original: '- looplex',
-        find: /- looplex\n/g,
-        replace: '{{DOCKER_NETWORK}}\n',
-        key: '{{DOCKER_NETWORK}}',
+        original: 'SampleApi/Student.1.0.schema.json',
+        find: /SampleApi\/Student.1.0.schema.json/g,
+        replace: '{{RESOURCE_TYPE_SCHEMA_PATH}}'
     },
+    {
+        original: 'Student',
+        find: /Student/g,
+        replace: '{{RESOURCE_TYPE_NAME}}'
+    },
+    {
+        original: 'academic',
+        find: /academic/g,
+        replace: '{{MODULE_NAME_LC}}'
+    }
   ];
 
   export default (filePath, outputFilePath) => 

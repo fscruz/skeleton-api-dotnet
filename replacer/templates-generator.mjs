@@ -6,7 +6,8 @@ import { pathToFileURL } from 'url';
 import { getConstant }  from '../constants.mjs';
 
 // Setup output directory
-const outputDir = path.resolve('plop/templates');
+const plopDir = path.resolve('plop');
+const outputDir = path.resolve(plopDir, 'templates');
 
 const inputDir = process.argv[2] || path.resolve(os.homedir() + '/projects/looplex/sample-api-dotnet/');
 
@@ -17,9 +18,13 @@ if (!fs.existsSync(inputDir)) {
 }
 
 // Ensure the output directory exists
-if (!fs.existsSync(outputDir)) {
-  console.error(`Output directory not found: ${outputDir}`);
+if (!fs.existsSync(plopDir)) {
+  console.error(`Output directory not found: ${plopDir}`);
   process.exit(1);
+}
+
+if (!fs.existsSync(outputDir)) { // creates the template folder
+  fs.mkdirSync(outputDir);
 }
 
 const webApiConfig = path.resolve('plop/webapi.config.ini');
@@ -74,7 +79,7 @@ async function main() {
         const replacer = await import(scriptPath); // Dynamically import the script
 
         const filePath = path.resolve(inputDir, replacer.file);
-        const outputFilePath = path.resolve(outputDir, dir, replacer.outputFile);
+        const outputFilePath = path.resolve(outputDir, replacer.outputFile);
         var dirPath = path.dirname(outputFilePath);
         fs.mkdirSync(dirPath, { recursive: true });
         var replaces = replacer.default(filePath, outputFilePath);

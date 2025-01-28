@@ -3,8 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-plop/templates/*
-
 # User-specific files
 *.rsuser
 *.suo
@@ -405,3 +403,5 @@ FodyWeavers.xsd
 
 # plop
 plop/output
+plop/templates
+plop/config.sample.ini

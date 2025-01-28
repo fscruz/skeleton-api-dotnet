@@ -1,7 +1,7 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Ioc/AcademicDependencyContainer.cs';
-export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Ioc/{{MODULE_NAME_CC}}DependencyContainer.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{CC MODULE_NAME}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Ioc/{{CC MODULE_NAME}}DependencyContainer.cs';
 const replaces = [
   {
       original: 'Students',
@@ -14,14 +14,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}'
   },
   {
-      original: 'students',
+      original: 'Students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_CCP}}'
+      replace: '{{CC RESOURCE_TYPE_NAMEP}}'
   },
   {
-    original: 'student',
+    original: 'Student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}'
+    replace: '{{CC RESOURCE_TYPE_NAME}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -35,9 +35,9 @@ const replaces = [
   }
   ,
   {
-    original: 'academic',
+    original: 'Academic',
     find: /academic/g,
-    replace: '{{MODULE_NAME_CC}}'
+    replace: '{{CC MODULE_NAME}}'
   }
 ]
 

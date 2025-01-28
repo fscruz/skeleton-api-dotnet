@@ -1,7 +1,7 @@
 import { CommandProcessor } from '../../utils/commandProcessor.mjs';
 
 export const file = 'src/services/academic/Looplex.DotNet.Samples.Academic.Infra/Data/CommandHandlers/CreateStudentCommandHandler.cs';
-export const outputFile = '{{PROJECT_PATH}}/services/{{MODULE_NAME_CC}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/CommandHandlers/Create{{RESOURCE_TYPE_NAME}}CommandHandler.cs';
+export const outputFile = '{{PROJECT_PATH}}/services/{{CC MODULE_NAME}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Infra/Data/CommandHandlers/Create{{RESOURCE_TYPE_NAME}}CommandHandler.cs';
 const replaces = [
   {
       original: 'Students',
@@ -14,14 +14,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}'
   },
   {
-      original: 'students',
+      original: 'Students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_LCP}}'
+      replace: '{{LC RESOURCE_TYPE_NAME_P}}'
   },
   {
-    original: 'student',
+    original: 'Student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}'
+    replace: '{{LC RESOURCE_TYPE_NAME}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -44,14 +44,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}Child'
   },
   {
-    original: 'projects',
+    original: 'Projects',
     find: /projects/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}children'
+    replace: '{{LC RESOURCE_TYPE_NAME}}children'
   },
   {
-    original: 'project',
+    original: 'Project',
     find: /project/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}child'
+    replace: '{{LC RESOURCE_TYPE_NAME}}child'
   }
 ]
 

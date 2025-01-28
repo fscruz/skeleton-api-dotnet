@@ -14,14 +14,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}'
   },
   {
-      original: 'students',
+      original: 'Students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_CCP}}'
+      replace: '{{CC RESOURCE_TYPE_NAMEP}}'
   },
   {
-    original: 'student',
+    original: 'Student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}'
+    replace: '{{CC RESOURCE_TYPE_NAME}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -49,14 +49,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}Child'
   },
   {
-    original: 'projects',
+    original: 'Projects',
     find: /projects/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}Children'
+    replace: '{{CC RESOURCE_TYPE_NAME}}Children'
   },
   {
-    original: 'project',
+    original: 'Project',
     find: /project/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}Child'
+    replace: '{{CC RESOURCE_TYPE_NAME}}Child'
   }
 ]
 

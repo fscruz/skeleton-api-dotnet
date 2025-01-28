@@ -5,6 +5,11 @@ export const file = 'test/Looplex.DotNet.Samples.Academic.Application.UnitTests/
 export const outputFile = '{{TESTPROJECT_PATH}}/{{PROJECT_NAMESPACE}}.{{MODULE_NAME}}.Application.UnitTests/Services/{{RESOURCE_TYPE_NAME}}ServiceTests.cs';
 const replaces = [
   {
+    original: '\\{{',
+    find: /{{/g,
+    replace: '\\{{'
+  },
+  {
       original: 'Students',
       find: /Students/g,
       replace: '{{RESOURCE_TYPE_NAME_P}}'
@@ -15,14 +20,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}'
   },
   {
-      original: 'students',
+      original: 'Students',
       find: /students/g,
-      replace: '{{RESOURCE_TYPE_NAME_CCP}}'
+      replace: '{{CC RESOURCE_TYPE_NAMEP}}'
   },
   {
-    original: 'student',
+    original: 'Student',
     find: /student/g,
-    replace: '{{RESOURCE_TYPE_NAME_CC}}'
+    replace: '{{CC RESOURCE_TYPE_NAME}}'
   },
   {
     original: 'Looplex.DotNet.Samples',
@@ -36,9 +41,9 @@ const replaces = [
   }
   ,
   {
-    original: 'academic',
+    original: 'Academic',
     find: /academic/g,
-    replace: '{{MODULE_NAME_CC}}'
+    replace: '{{CC MODULE_NAME}}'
   },
   {
     original: 'test',
@@ -55,14 +60,14 @@ const replaces = [
     replace: '{{RESOURCE_TYPE_NAME}}Child'
   },
   {
-    original: 'projects',
+    original: 'Projects',
     find: /projects/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}children'
+    replace: '{{LC RESOURCE_TYPE_NAME}}children'
   },
   {
-    original: 'project',
+    original: 'Project',
     find: /project/g,
-    replace: '{{RESOURCE_TYPE_NAME_LC}}child'
+    replace: '{{LC RESOURCE_TYPE_NAME}}child'
   }
 ]
 

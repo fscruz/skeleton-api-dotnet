@@ -5,14 +5,14 @@ export const file = 'src/docker/docker-compose.override.yml';
 export const outputFile = '{{PROJECT_PATH}}/docker/docker-compose.override.yml';
 const replaces = [
     {
-        original: 'looplex.dotnet.samples',
+        original: 'Looplex.Dotnet.Samples',
         find: /looplex.dotnet.samples/g,
-        replace: '{{PROJECT_NAMESPACE_LC}}'
+        replace: '{{LC PROJECT_NAMESPACE}}'
     },
     {
-        original: 'academic',
+        original: 'Academic',
         find: /academic/g,
-        replace: '{{MODULE_NAME_LC}}'
+        replace: '{{LC MODULE_NAME}}'
     },
     {
         original: '8080',

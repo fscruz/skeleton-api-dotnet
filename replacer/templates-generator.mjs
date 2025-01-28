@@ -3,6 +3,7 @@ import fs from 'fs';
 import os from 'os';
 import readline from 'readline';
 import { pathToFileURL } from 'url';
+import { getConstant }  from '../constants.mjs';
 
 // Setup output directory
 const outputDir = path.resolve('plop/templates');
@@ -57,6 +58,8 @@ async function main() {
   console.log('Output directory cleared.');
 
   const scriptsPath = 'replacer/scripts';
+  fs.writeFileSync(getConstant('ALLCONFIGPATH'), '', { flag: 'w' } );
+ 
   fs.readdirSync(scriptsPath).forEach((dir) => {
     if (fs.lstatSync(path.resolve(scriptsPath, dir)).isDirectory()) {
       const configFile = path.resolve(outputDir, `${dir}.config.ini`)
@@ -76,6 +79,7 @@ async function main() {
         fs.mkdirSync(dirPath, { recursive: true });
         var replaces = replacer.default(filePath, outputFilePath);
 
+        appendToConfig(getConstant('ALLCONFIGPATH'), replaces, getConfigSampleAppendLine)
         appendToConfig(configFile, replaces, getConfigAppendLine);
         appendToConfig(sampleConfigFile, replaces, getConfigSampleAppendLine);
       });
@@ -92,7 +96,7 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
     if (!replace.replace)
       return;
     
-    if (removeBeforeAndAfterMustaches(replace) && !set.has(replace.replace)) {
+    if (removeBeforeAndAfterMustaches(replace) && leaveOnlyConfig(replace) && !set.has(replace.replace)) {
       set.add(replace.replace);
       const appendLine = appendLineFunc(replace);
       fs.appendFileSync(configFilePath, appendLine, 'utf8');
@@ -102,17 +106,27 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
     }
   });
 }
-
+//also removes mustaches
 function removeBeforeAndAfterMustaches(replace){
+  if (!replace?.replace) return false;
   const startIndex = replace.replace.indexOf('{{');
   const finalIndex = replace.replace.indexOf('}}');
-  if(startIndex >= 0 && finalIndex >= 0){
-    replace.replace = replace.replace.substring(startIndex, finalIndex + 2);
+  if(startIndex >= 0 && finalIndex >= startIndex){
+    replace.replace = replace.replace.substring(startIndex +2 , finalIndex);
     return true
   }
   return false
 }
+//config is the last word splited by spaces
+function leaveOnlyConfig(replace){
 
+  if(!replace?.replace) return false;
+
+  const splited = replace.replace.split(' ');
+  replace.replace = splited[splited.length - 1];
+  
+  return true;
+}
 function getConfigAppendLine(replace) {
   return `${replace.replace}=${replace.replace}\n`
 }

@@ -5,9 +5,9 @@ export const file = 'src/docker/docker-compose.yml';
 export const outputFile = '{{PROJECT_PATH}}/docker/docker-compose.yml';
 const replaces = [
     {
-        original: 'looplex.dotnet.samples',
+        original: 'Looplex.Dotnet.Samples',
         find: /looplex.dotnet.samples/g,
-        replace: '{{PROJECT_NAMESPACE_LC}}'
+        replace: '{{LC PROJECT_NAMESPACE}}'
     },
     {
         original: 'Looplex.DotNet.Samples',
@@ -35,9 +35,9 @@ const replaces = [
         replace: '{{RESOURCE_TYPE_NAME}}'
     },
     {
-        original: 'academic',
+        original: 'Academic',
         find: /academic/g,
-        replace: '{{MODULE_NAME_LC}}'
+        replace: '{{LC MODULE_NAME}}'
     }
   ];
 

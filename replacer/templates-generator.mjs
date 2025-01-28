@@ -108,9 +108,10 @@ function appendToConfig(configFilePath, replaces, appendLineFunc) {
 }
 //also removes mustaches
 function removeBeforeAndAfterMustaches(replace){
+  if (!replace?.replace) return false;
   const startIndex = replace.replace.indexOf('{{');
   const finalIndex = replace.replace.indexOf('}}');
-  if(startIndex >= 0 && finalIndex >= 0){
+  if(startIndex >= 0 && finalIndex >= startIndex){
     replace.replace = replace.replace.substring(startIndex +2 , finalIndex);
     return true
   }
@@ -118,12 +119,12 @@ function removeBeforeAndAfterMustaches(replace){
 }
 //config is the last word splited by spaces
 function leaveOnlyConfig(replace){
-  if(replace && replace.replace)
-  {
-    const splited = replace.replace.split(' ');
 
-    replace.replace = splited[splited.length - 1];
-  }
+  if(!replace?.replace) return false;
+
+  const splited = replace.replace.split(' ');
+  replace.replace = splited[splited.length - 1];
+  
   return true;
 }
 function getConfigAppendLine(replace) {

@@ -54,7 +54,7 @@ const replaces = [
     replace: '{{LC RESOURCE_TYPE_NAME}}children'
   },
   {
-    original: 'project',
+    original: 'Project',
     find: /project/g,
     replace: '{{LC RESOURCE_TYPE_NAME}}child'
   }

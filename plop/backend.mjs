@@ -170,32 +170,22 @@ function backendFactory(plop) {
  function setPlopHelpers(plop){
 
   plop.setHelper('UC', function (text) {
-    // if(text && text != '')
-      return text.toUpperCase();
-
-    return text
+    
+    if (!text) return text;
+    
+    return text.toUpperCase();
   });
 
   plop.setHelper('LC', function (text) {
-     if(text && text != '')
-      return text.toLowerCase();
-
-    return text
+    if (!text) return text;
+    
+    return text.toLowerCase();
   });
 
   plop.setHelper('CC', function (text) {
-       if(text && text != '')
-       {
-          if(text.length > 1)
-          {
-              let firstLetter = text.substring(0,1);
-              const rest = text.substring(1, text.length);
-              firstLetter = firstLetter.toLowerCase();
-              return firstLetter + rest;
-          }
-          return text.toLowerCase();
-       }
-      return text;
+    if (!text) return text;
+    if (text.length <= 1) return text.toLowerCase();
+    return text.charAt(0).toLowerCase() + text.slice(1);
   });
 
 }

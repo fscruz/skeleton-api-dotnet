@@ -3,7 +3,7 @@ import ini from 'ini'
 import { getConstant } from '../constants.mjs'
 
 function backendFactory (plop) {
-  const outputDir = './plop/output';
+  const outputDir = './plop/output'
 
   plop.setActionType('deleteOutputAsync', function (answers, config, plop) {
     return new Promise((resolve, reject) => {
@@ -169,13 +169,13 @@ function backendFactory (plop) {
 function setPlopHelpers (plop) {
   plop.setHelper('UC', function (text) {
     if (!text) return text
-    
+
     return text.toUpperCase()
   })
 
   plop.setHelper('LC', function (text) {
     if (!text) return text
-    
+
     return text.toLowerCase()
   })
 
@@ -184,7 +184,6 @@ function setPlopHelpers (plop) {
     if (text.length <= 1) return text.toLowerCase()
     return text.charAt(0).toLowerCase() + text.slice(1)
   })
-
 }
 
 export default backendFactory

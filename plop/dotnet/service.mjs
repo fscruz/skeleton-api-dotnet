@@ -1,28 +1,48 @@
 import { readFileSync } from 'node:fs'
 import ini from 'ini'
-import { CREATE_NEW_SOLUTION, getConstant } from '../../constants.mjs'
-import { addProjectToSolution, createSolution, deleteDirectory, findFileFullPathInFolder, findSolutionsInsideFolder } from '../fileHelper.mjs'
+import { APPLICATION_ABSTRACTION_PROJECT_SFX, APPLICATION_PROJECT_SFX, CREATE_NEW_SOLUTION, DOMAIN_PROJECT_SFX, getConstant, INFRA_PROJECT_SFX, SERVICE_FOLDER } from '../../constants.mjs'
+import { addProjectToSolution, createSolution, deleteDirectory, findSolutionsInsideFolder } from '../fileHelper.mjs'
 import path from 'node:path'
+import { loadConfig } from '../configHelper.mjs'
 
 let solutions = [
   CREATE_NEW_SOLUTION
 ]
-// function addServiceProjectsToSolution (solutionFullPath) {
-//   const solutionPathWihtoutFileName = getFilePathWithoutFileName(solutionFullPath)
-//   const applicationProjectName = getApplicationProjectName()
-//   const applicationProjectPath = findFileFullPathInFolder(solutionPathWihtoutFileName, applicationProjectName)
-//   const applicationDefaultFolderInsideSolution = getApplicationDefaultFolderInsideSolution()
-//   addProjectToSolution(solutionFullPath, applicationProjectPath, applicationDefaultFolderInsideSolution)
-//   //fazer os passos acima corretamente depois fazer o mesmo para os outros 3 projetos
-// }
+function addServiceProjectsToSolution (solutionFullPath, config) {
+  const solutionPathWithoutName = path.dirname(solutionFullPath)
+  // Add Application project to Solution
+  const applicationProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + APPLICATION_PROJECT_SFX
+  const applicationProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), applicationProjectName, applicationProjectName + '.csproj')
+  const applicationDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  addProjectToSolution(solutionFullPath, applicationProjectPath, applicationDefaultFolderInsideSolution)
+  // Add Application.Abstraction project to Solution
+  const applicationAbstractionProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + APPLICATION_ABSTRACTION_PROJECT_SFX
+  const applicationAbstractionProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), applicationAbstractionProjectName, applicationAbstractionProjectName + '.csproj')
+  const applicationAbstractionDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  addProjectToSolution(solutionFullPath, applicationAbstractionProjectPath, applicationAbstractionDefaultFolderInsideSolution)
+  // Add Domain project to Solution
+  const domainProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + DOMAIN_PROJECT_SFX
+  const domainProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), domainProjectName, domainProjectName + '.csproj')
+  const domainDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  addProjectToSolution(solutionFullPath, domainProjectPath, domainDefaultFolderInsideSolution)
+  // Add Infra project to Solution
+  const infraProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + INFRA_PROJECT_SFX
+  const infraProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), infraProjectName, infraProjectName + '.csproj')
+  const infraDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  addProjectToSolution(solutionFullPath, infraProjectPath, infraDefaultFolderInsideSolution)
+}
 function setActions (plop) {
+  plop.setActionType('loadConfig', function (answers, config, plop) {
+    console.log(answers, config, plop, 'COISAS DO PLOP')
+    answers.config = loadConfig()
+  })
   plop.setActionType('addServiceProjectsToSolution', function (answers, config, plop) {
-    // const solutionPath = answers.solutionName
+    let solutionPath = answers.solutionName
     if (answers.chooseSolution === CREATE_NEW_SOLUTION) {
-      // solutionPath = path.resolve(answers.outputPath, answers.solutionName + '.sln')
+      solutionPath = path.resolve(answers.outputPath, answers.solutionName + '.sln')
       createSolution(answers.outputPath, answers.solutionName)
     }
-    // addServiceProjectToSolution(solutionPath)
+    addServiceProjectsToSolution(solutionPath, answers.config)
   })
 }
 function dotnetServiceFactory (plop) {
@@ -133,6 +153,9 @@ function dotnetServiceFactory (plop) {
           base: 'plop/templates',
           data: configData, // Use the selected data for replacements
           force: true
+        },
+        {
+          type: 'loadConfig'
         },
         {
           type: 'addServiceProjectsToSolution'

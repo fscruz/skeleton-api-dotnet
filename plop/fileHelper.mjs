@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'node:path'
 import { rm } from 'node:fs'
 import { pathToFileURL } from 'url'
-import { exec } from 'child_process'
+import { execSync } from 'node:child_process'
 
 export function clearFolder (folderPath) {
   fs.readdir(folderPath, (err, files) => {
@@ -56,7 +56,7 @@ export function findSolutionsInsideFolder (startPath) {
 }
 
 export function createSolution (solutionPath, solutionName) {
-  exec(`dotnet new sln -o "${solutionPath}" -n "${solutionName}"`, (error, stdout, stderr) => {
+  execSync(`dotnet new sln -o "${solutionPath}" -n "${solutionName}"`, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`)
       return
@@ -73,9 +73,9 @@ export function addProjectToSolution (solutionFullPath, projectFullPath, folders
   let cmd = `dotnet  sln "${solutionFullPath}" add "${projectFullPath}"`
 
   if (foldersInsideSolution && foldersInsideSolution !== '') {
-    cmd = cmd + `--solution-folder ${foldersInsideSolution}`
+    cmd = cmd + ` --solution-folder ${foldersInsideSolution}`
   }
-  exec(cmd, (error, stdout, stderr) => {
+  execSync(cmd, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`)
       return
@@ -84,4 +84,13 @@ export function addProjectToSolution (solutionFullPath, projectFullPath, folders
       console.error(`Stderr: ${stderr}`)
     }
   })
+}
+
+export function getAllLinesFromFile (file) {
+  const fullPath = path.resolve(file)
+
+  const fileContent = fs.readFileSync(fullPath, 'utf8')
+
+  const lines = fileContent.split(/\r?\n/)
+  return lines
 }

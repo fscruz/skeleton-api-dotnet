@@ -3,7 +3,7 @@ import fs from 'fs'
 import os from 'os'
 import readline from 'readline'
 import { pathToFileURL } from 'url'
-import { ALLCONFIGPATH, getConstant } from '../constants.mjs'
+import { getConstant } from '../constants.mjs'
 
 // Setup output directory
 const plopDir = path.resolve('plop')
@@ -26,9 +26,6 @@ if (!fs.existsSync(plopDir)) {
 if (!fs.existsSync(outputDir)) { // creates the template folder
   fs.mkdirSync(outputDir)
 }
-
-const webApiConfig = path.resolve('plop/webapi.config.ini')
-const webApiSampleConfig = path.resolve('plop/webapi.config.sample.ini')
 
 // Prompt the user to confirm clearing the output directory
 console.log(`Output directory: ${outputDir}`)
@@ -63,7 +60,6 @@ async function main () {
   console.log('Output directory cleared.')
 
   const scriptsPath = 'replacer/scripts'
-  console.log('ALLCONFIGPATH', ALLCONFIGPATH, getConstant('ALLCONFIGPATH'))
   fs.writeFileSync(getConstant('ALLCONFIGPATH'), '', { flag: 'w' })
   // fs.writeFileSync(ALLCONFIGPATH, '', { flag: 'w' })
 

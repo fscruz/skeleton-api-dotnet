@@ -5,7 +5,6 @@ import { pathToFileURL } from 'url'
 import { exec } from 'child_process'
 
 export function clearFolder (folderPath) {
-  console.log('FOLDER to clear', folderPath)
   fs.readdir(folderPath, (err, files) => {
     if (err) throw err
 
@@ -13,7 +12,6 @@ export function clearFolder (folderPath) {
       const filePath = path.join(folderPath, file)
       fs.lstat(filePath, (err, stats) => {
         if (err) throw err
-        console.log('Content IItem', filePath, stats.isDirectory())
         if (stats.isDirectory()) {
           deleteDirectory(pathToFileURL(path.join(process.cwd(), filePath).pathname))
           fs.rmdir(filePath, (err) => {
@@ -65,9 +63,7 @@ export function createSolution (solutionPath, solutionName) {
     }
     if (stderr) {
       console.error(`Stderr: ${stderr}`)
-      return
     }
-    console.log(`Dotnet Version: ${stdout.trim()}`)
   })
 }
 export function findFileFullPathInFolder (whereToFind, fileToFind) {
@@ -86,8 +82,6 @@ export function addProjectToSolution (solutionFullPath, projectFullPath, folders
     }
     if (stderr) {
       console.error(`Stderr: ${stderr}`)
-      return
     }
-    console.log(`Dotnet Version: ${stdout.trim()}`)
   })
 }

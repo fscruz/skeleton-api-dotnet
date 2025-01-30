@@ -7,24 +7,22 @@ import path from 'node:path'
 let solutions = [
   CREATE_NEW_SOLUTION
 ]
-function addServiceProjectsToSolution (solutionFullPath) {
-  const solutionPathWihtoutFileName = getFilePathWithoutFileName(solutionFullPath)
-  const applicationProjectName = getApplicationProjectName()
-  const applicationProjectPath = findFileFullPathInFolder(solutionFullPath, applicationProjectName)
-  const applicationDefaultFolderInsideSolution = getApplicationDefaultFolderInsideSolution()
-  addProjectToSolution(solutionFullPath, applicationProjectPath applicationDefaultFolderInsideSolution)
-  //fazer os passos acima corretamente depois fazer o mesmo para os outros 3 projetos
-}
+// function addServiceProjectsToSolution (solutionFullPath) {
+//   const solutionPathWihtoutFileName = getFilePathWithoutFileName(solutionFullPath)
+//   const applicationProjectName = getApplicationProjectName()
+//   const applicationProjectPath = findFileFullPathInFolder(solutionPathWihtoutFileName, applicationProjectName)
+//   const applicationDefaultFolderInsideSolution = getApplicationDefaultFolderInsideSolution()
+//   addProjectToSolution(solutionFullPath, applicationProjectPath, applicationDefaultFolderInsideSolution)
+//   //fazer os passos acima corretamente depois fazer o mesmo para os outros 3 projetos
+// }
 function setActions (plop) {
   plop.setActionType('addServiceProjectsToSolution', function (answers, config, plop) {
-    let solutionPath = answers.solutionName
+    // const solutionPath = answers.solutionName
     if (answers.chooseSolution === CREATE_NEW_SOLUTION) {
-      solutionPath = path.resolve(answers.outputPath, answers.solutionName + '.sln')
-      console.log(solutionPath, 'PATH NEW SOLUTION')
+      // solutionPath = path.resolve(answers.outputPath, answers.solutionName + '.sln')
       createSolution(answers.outputPath, answers.solutionName)
     }
-    addServiceProjectToSolution(solutionPath)
-    console.log(solutionPath, 'PATH BLAAAA SOLUTION')
+    // addServiceProjectToSolution(solutionPath)
   })
 }
 function dotnetServiceFactory (plop) {
@@ -67,7 +65,6 @@ function dotnetServiceFactory (plop) {
         // find solution in folder
         when (context) {
           if (context.cleanOutputPath !== 'yes') { solutions = solutions.concat(findSolutionsInsideFolder(context.outputPath)) }
-          console.log(solutions, 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBB')
           return false
         }
       },
@@ -127,14 +124,12 @@ function dotnetServiceFactory (plop) {
           DB_DATABASE: answers.DB_DATABASE
         }
       }
-      console.log(answers.outputPath, 'BLASTOISE', path.resolve(process.cwd(), 'plop/templates/**/*'), configData, path.resolve('plop/templates/{{PROJECT_PATH}}/services/**/*'))
       return [
         {
           type: 'addMany',
           destination: answers.outputPath,
 
-          // templateFiles: ['plop/templates/{{PROJECT_PATH}}/services/**/*', 'plop/templates/{{PROJECT_PATH}}/services/**/.*'],
-          templateFiles: ['plop/templates/**/*', 'plop/templates/**/.*'],
+          templateFiles: ['plop/templates/\\{\\{PROJECT_PATH\\}\\}/services/**/*', 'plop/templates/\\{\\{PROJECT_PATH\\}\\}/services/**/.*'],
           base: 'plop/templates',
           data: configData, // Use the selected data for replacements
           force: true

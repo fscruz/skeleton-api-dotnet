@@ -1,6 +1,6 @@
 import { readFileSync, rm } from 'node:fs'
 import ini from 'ini'
-import { getConstant } from '../constants.mjs'
+import { ALLCONFIGPATH } from '../constants.mjs'
 
 function backendFactory (plop) {
   const outputDir = './plop/output'
@@ -126,7 +126,7 @@ function backendFactory (plop) {
 
       if (answers.configChoice === 'Use sample config') {
         // Load the sample config from the sample-config.ini file
-        const sampleConfig = ini.parse(readFileSync(getConstant('ALLCONFIGPATH'), 'utf-8'))
+        const sampleConfig = ini.parse(readFileSync(ALLCONFIGPATH, 'utf-8'))
         configData = { ...sampleConfig }
       } else {
         // Use the answers from the prompts

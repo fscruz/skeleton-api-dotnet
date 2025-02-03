@@ -1,9 +1,9 @@
-import { getConstant } from '../constants.mjs'
+import { ALLCONFIGPATH } from '../constants.mjs'
 import { getAllLinesFromFile } from './fileHelper.mjs'
 
 export function loadConfig () {
   const config = {}
-  const configLines = getAllLinesFromFile(getConstant('ALLCONFIGPATH'))
+  const configLines = getAllLinesFromFile(ALLCONFIGPATH)
 
   if (configLines) {
     for (let i = 0; i < configLines.length; i++) {
@@ -15,7 +15,7 @@ export function loadConfig () {
       }
     }
   } else {
-    throw new Error(`config file ${getConstant('ALLCONFIGPATH')} not found`)
+    throw new Error(`config file ${ALLCONFIGPATH} not found`)
   }
   return config
 }

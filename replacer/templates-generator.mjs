@@ -3,7 +3,7 @@ import fs from 'fs'
 import os from 'os'
 import readline from 'readline'
 import { pathToFileURL } from 'url'
-import { CONFIG_SFX, getConstant, PLOP_DIRECTORY, REPLACER_OUTPUT_DIRECTORY } from '../constants.mjs'
+import { ALLCONFIGPATH, CONFIG_SFX, PLOP_DIRECTORY, REPLACER_OUTPUT_DIRECTORY } from '../constants.mjs'
 
 // Setup output directory
 const plopDir = path.resolve(PLOP_DIRECTORY)
@@ -60,7 +60,7 @@ async function main () {
   console.log('Output directory cleared.')
 
   const scriptsPath = 'replacer/scripts'
-  fs.writeFileSync(getConstant('ALLCONFIGPATH'), '', { flag: 'w' })
+  fs.writeFileSync(ALLCONFIGPATH, '', { flag: 'w' })
   // fs.writeFileSync(ALLCONFIGPATH, '', { flag: 'w' })
 
   fs.readdirSync(scriptsPath).forEach((dir) => {
@@ -80,9 +80,8 @@ async function main () {
         const dirPath = path.dirname(outputFilePath)
         fs.mkdirSync(dirPath, { recursive: true })
         const replaces = replacer.default(filePath, outputFilePath)
-        if (configFile.includes('abstractions')) { console.log('RAICHU', configFile, filePath, replaces) }
 
-        appendToConfig(getConstant('ALLCONFIGPATH'), replaces, getConfigSampleAppendLine)
+        appendToConfig(ALLCONFIGPATH, replaces, getConfigSampleAppendLine)
         appendToConfig(configFile, replaces, getConfigAppendLine)
         appendToConfig(sampleConfigFile, replaces, getConfigSampleAppendLine)
       })

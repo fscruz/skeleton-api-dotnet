@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import ini from 'ini'
-import { ANSWER_ALL_QUESTIONS, APPLICATION_ABSTRACTION_PROJECT_SFX, APPLICATION_PROJECT_SFX, CONFIG_CHOICE, CONFIG_SFX, CREATE_NEW_SOLUTION, DOMAIN_PROJECT_SFX, getConstant, INFRA_PROJECT_SFX, PLOP_DIRECTORY, REPLACER_OUTPUT_DIRECTORY, SERVICE_FOLDER, USE_SAMPLE_CONFIG } from '../../constants.mjs'
+import { ALLCONFIGPATH, ANSWER_ALL_QUESTIONS, APPLICATION_ABSTRACTION_PROJECT_SFX, APPLICATION_PROJECT_SFX, CONFIG_CHOICE, CONFIG_SFX, CREATE_NEW_SOLUTION, DEFAULT_OUTPUT_PATH, DOMAIN_PROJECT_SFX, INFRA_PROJECT_SFX, PLOP_DIRECTORY, REPLACER_OUTPUT_DIRECTORY, SERVICE_FOLDER, USE_SAMPLE_CONFIG } from '../../constants.mjs'
 import { addProjectToSolution, createSolution, deleteDirectory, findSolutionsInsideFolder } from '../fileHelper.mjs'
 import path from 'node:path'
 import { loadConfig } from '../configHelper.mjs'
@@ -19,9 +19,17 @@ const questions = getQuestionsFromFiles(
     path.resolve(replacerOutputDir, `service-infra${CONFIG_SFX}`)
   ]
 )
+function checkConfigRequiredFields (config) {
+  if (!config) throw new Error('Config must be provided')
 
+  if (!config.PROJECT_NAMESPACE || typeof config.PROJECT_NAMESPACE !== 'string') throw new Error('Config PROJECT_NAMESPACE must be provided')
+  if (!config.MODULE_NAME || typeof config.MODULE_NAME !== 'string') throw new Error('Config MODULE_NAME must be provided')
+  if (!config.PROJECT_PATH || typeof config.PROJECT_PATH !== 'string') throw new Error('Config PROJECT_PATH must be provided')
+}
 function addServiceProjectsToSolution (solutionFullPath, config) {
   const solutionPathWithoutName = path.dirname(solutionFullPath)
+
+  checkConfigRequiredFields(config)
   // Add Application project to Solution
   const applicationProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + APPLICATION_PROJECT_SFX
   const applicationProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), applicationProjectName, applicationProjectName + '.csproj')
@@ -45,7 +53,9 @@ function addServiceProjectsToSolution (solutionFullPath, config) {
 }
 function setActions (plop) {
   plop.setActionType('loadConfig', function (answers, config, plop) {
-    answers.config = loadConfig()
+    if (answers[CONFIG_CHOICE] === USE_SAMPLE_CONFIG) {
+      answers.config = loadConfig()
+    }
   })
   plop.setActionType('addServiceProjectsToSolution', function (answers, config, plop) {
     let solutionPath = answers.solutionName
@@ -65,7 +75,7 @@ function dotnetServiceFactory (plop) {
         type: 'input',
         name: 'outputPath',
         message: 'Output path:',
-        default: getConstant('DEFAULT_OUTPUT_PATH')
+        default: DEFAULT_OUTPUT_PATH
       },
       {
         when (answers) {
@@ -74,7 +84,7 @@ function dotnetServiceFactory (plop) {
           }
           console.log('Output path will be ' + answers.outputPath)
 
-          return answers.outputPath === getConstant('DEFAULT_OUTPUT_PATH')
+          return answers.outputPath === DEFAULT_OUTPUT_PATH
         },
         type: 'list',
         name: 'cleanOutputPath',
@@ -133,7 +143,7 @@ function dotnetServiceFactory (plop) {
 
       if (answers[CONFIG_CHOICE] === USE_SAMPLE_CONFIG) {
         // Load the sample config from the sample-config.ini file
-        const sampleConfig = ini.parse(readFileSync(getConstant('ALLCONFIGPATH'), 'utf-8'))
+        const sampleConfig = ini.parse(readFileSync(ALLCONFIGPATH, 'utf-8'))
         // const sampleConfig = ini.parse(readFileSync(ALLCONFIGPATHH), 'utf-8'))
         configData = { ...sampleConfig }
       } else {
@@ -142,6 +152,7 @@ function dotnetServiceFactory (plop) {
           total = { ...total, [current.name]: answers[current.name] }
           return total
         }, {})
+        answers.config = configData
       }
       return [
         {

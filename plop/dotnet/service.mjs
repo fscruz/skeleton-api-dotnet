@@ -1,13 +1,25 @@
 import { readFileSync } from 'node:fs'
 import ini from 'ini'
-import { APPLICATION_ABSTRACTION_PROJECT_SFX, APPLICATION_PROJECT_SFX, CREATE_NEW_SOLUTION, DOMAIN_PROJECT_SFX, getConstant, INFRA_PROJECT_SFX, SERVICE_FOLDER } from '../../constants.mjs'
+import { ANSWER_ALL_QUESTIONS, APPLICATION_ABSTRACTION_PROJECT_SFX, APPLICATION_PROJECT_SFX, CONFIG_CHOICE, CONFIG_SFX, CREATE_NEW_SOLUTION, DOMAIN_PROJECT_SFX, getConstant, INFRA_PROJECT_SFX, PLOP_DIRECTORY, REPLACER_OUTPUT_DIRECTORY, SERVICE_FOLDER, USE_SAMPLE_CONFIG } from '../../constants.mjs'
 import { addProjectToSolution, createSolution, deleteDirectory, findSolutionsInsideFolder } from '../fileHelper.mjs'
 import path from 'node:path'
 import { loadConfig } from '../configHelper.mjs'
+import { getQuestionsFromFiles } from '../plopHelper.mjs'
 
 let solutions = [
   CREATE_NEW_SOLUTION
 ]
+const plopDir = path.resolve(PLOP_DIRECTORY)
+const replacerOutputDir = path.resolve(plopDir, REPLACER_OUTPUT_DIRECTORY)
+const questions = getQuestionsFromFiles(
+  [
+    path.resolve(replacerOutputDir, `service-application${CONFIG_SFX}`),
+    path.resolve(replacerOutputDir, `service-application-abstractions${CONFIG_SFX}`),
+    path.resolve(replacerOutputDir, `service-domain${CONFIG_SFX}`),
+    path.resolve(replacerOutputDir, `service-infra${CONFIG_SFX}`)
+  ]
+)
+
 function addServiceProjectsToSolution (solutionFullPath, config) {
   const solutionPathWithoutName = path.dirname(solutionFullPath)
   // Add Application project to Solution
@@ -33,7 +45,6 @@ function addServiceProjectsToSolution (solutionFullPath, config) {
 }
 function setActions (plop) {
   plop.setActionType('loadConfig', function (answers, config, plop) {
-    console.log(answers, config, plop, 'COISAS DO PLOP')
     answers.config = loadConfig()
   })
   plop.setActionType('addServiceProjectsToSolution', function (answers, config, plop) {
@@ -111,38 +122,26 @@ function dotnetServiceFactory (plop) {
       // Conditional prompts for custom input if the user does not select the sample config
       {
         type: 'list',
-        name: 'configChoice',
+        name: CONFIG_CHOICE,
         message: 'Do you want to use a config file or to answer all questions?',
-        choices: ['Use sample config', 'Answer all questions']
-      }
+        choices: [USE_SAMPLE_CONFIG, ANSWER_ALL_QUESTIONS]
+      },
+      ...questions
     ],
     actions: function (answers) {
       let configData = {}
 
-      if (answers.configChoice === 'Use sample config') {
+      if (answers[CONFIG_CHOICE] === USE_SAMPLE_CONFIG) {
         // Load the sample config from the sample-config.ini file
         const sampleConfig = ini.parse(readFileSync(getConstant('ALLCONFIGPATH'), 'utf-8'))
         // const sampleConfig = ini.parse(readFileSync(ALLCONFIGPATHH), 'utf-8'))
         configData = { ...sampleConfig }
       } else {
         // Use the answers from the prompts
-        configData = {
-          COMPANY_NAME: answers.COMPANY_NAME,
-          SOLUTION_NAME: answers.SOLUTION_NAME,
-          MICROSERVICE_NAME: answers.MICROSERVICE_NAME,
-          SERVICE_NAME: answers.SERVICE_NAME,
-          SERVICE_FOLDER: answers.SERVICE_FOLDER,
-          RESOURCE_LOCATION: answers.RESOURCE_LOCATION,
-          RESOURCE_NAME: answers.RESOURCE_NAME,
-          RESOURCE_NAME_P: answers.RESOURCE_NAME_P,
-          RESOURCE_SCHEMA_VERSION: answers.RESOURCE_SCHEMA_VERSION,
-          TELEMETRY_SERVICE_NAME: answers.TELEMETRY_SERVICE_NAME,
-          DB_SERVER: answers.DB_SERVER,
-          DB_PORT: answers.DB_PORT,
-          DB_USER: answers.DB_USER,
-          DB_PASSWORD: answers.DB_PASSWORD,
-          DB_DATABASE: answers.DB_DATABASE
-        }
+        configData = questions.reduce((total, current) => {
+          total = { ...total, [current.name]: answers[current.name] }
+          return total
+        }, {})
       }
       return [
         {

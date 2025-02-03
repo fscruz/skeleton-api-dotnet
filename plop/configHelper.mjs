@@ -17,6 +17,5 @@ export function loadConfig () {
   } else {
     throw new Error(`config file ${getConstant('ALLCONFIGPATH')} not found`)
   }
-  console.log('Config loaded', config)
   return config
 }

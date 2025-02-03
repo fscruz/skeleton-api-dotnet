@@ -33,22 +33,22 @@ function addServiceProjectsToSolution (solutionFullPath, config) {
   // Add Application project to Solution
   const applicationProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + APPLICATION_PROJECT_SFX
   const applicationProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), applicationProjectName, applicationProjectName + '.csproj')
-  const applicationDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  const applicationDefaultFolderInsideSolution = path.join(config.PROJECT_PATH, SERVICE_FOLDER, config.MODULE_NAME)
   addProjectToSolution(solutionFullPath, applicationProjectPath, applicationDefaultFolderInsideSolution)
   // Add Application.Abstraction project to Solution
   const applicationAbstractionProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + APPLICATION_ABSTRACTION_PROJECT_SFX
   const applicationAbstractionProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), applicationAbstractionProjectName, applicationAbstractionProjectName + '.csproj')
-  const applicationAbstractionDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  const applicationAbstractionDefaultFolderInsideSolution = path.join(config.PROJECT_PATH, SERVICE_FOLDER, config.MODULE_NAME)
   addProjectToSolution(solutionFullPath, applicationAbstractionProjectPath, applicationAbstractionDefaultFolderInsideSolution)
   // Add Domain project to Solution
   const domainProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + DOMAIN_PROJECT_SFX
   const domainProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), domainProjectName, domainProjectName + '.csproj')
-  const domainDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  const domainDefaultFolderInsideSolution = path.join(config.PROJECT_PATH, SERVICE_FOLDER, config.MODULE_NAME)
   addProjectToSolution(solutionFullPath, domainProjectPath, domainDefaultFolderInsideSolution)
   // Add Infra project to Solution
   const infraProjectName = config.PROJECT_NAMESPACE + '.' + config.MODULE_NAME + '.' + INFRA_PROJECT_SFX
   const infraProjectPath = path.resolve(solutionPathWithoutName, config.PROJECT_PATH, SERVICE_FOLDER, (config.MODULE_NAME).toLowerCase(), infraProjectName, infraProjectName + '.csproj')
-  const infraDefaultFolderInsideSolution = path.join(SERVICE_FOLDER, config.MODULE_NAME)
+  const infraDefaultFolderInsideSolution = path.join(config.PROJECT_PATH, SERVICE_FOLDER, config.MODULE_NAME)
   addProjectToSolution(solutionFullPath, infraProjectPath, infraDefaultFolderInsideSolution)
 }
 function setActions (plop) {

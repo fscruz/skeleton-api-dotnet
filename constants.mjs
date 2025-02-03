@@ -20,3 +20,11 @@ export const DOMAIN_PROJECT_SFX = 'Domain'
 export const INFRA_PROJECT_SFX = 'Infra'
 
 export const SERVICE_FOLDER = 'services'
+
+export const USE_SAMPLE_CONFIG = 'Use sample config'
+export const ANSWER_ALL_QUESTIONS = 'Answer all questions'
+export const CONFIG_CHOICE = 'configChoice'
+
+export const REPLACER_OUTPUT_DIRECTORY = 'templates'
+export const PLOP_DIRECTORY = 'plop'
+export const CONFIG_SFX = '.config.ini'

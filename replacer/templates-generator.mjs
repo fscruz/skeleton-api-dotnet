@@ -3,11 +3,11 @@ import fs from 'fs'
 import os from 'os'
 import readline from 'readline'
 import { pathToFileURL } from 'url'
-import { getConstant } from '../constants.mjs'
+import { CONFIG_SFX, getConstant, PLOP_DIRECTORY, REPLACER_OUTPUT_DIRECTORY } from '../constants.mjs'
 
 // Setup output directory
-const plopDir = path.resolve('plop')
-const outputDir = path.resolve(plopDir, 'templates')
+const plopDir = path.resolve(PLOP_DIRECTORY)
+const outputDir = path.resolve(plopDir, REPLACER_OUTPUT_DIRECTORY)
 
 const inputDir = process.argv[2] || path.resolve(os.homedir() + '/projects/looplex/sample-api-dotnet/')
 
@@ -65,7 +65,7 @@ async function main () {
 
   fs.readdirSync(scriptsPath).forEach((dir) => {
     if (fs.lstatSync(path.resolve(scriptsPath, dir)).isDirectory()) {
-      const configFile = path.resolve(outputDir, `${dir}.config.ini`)
+      const configFile = path.resolve(outputDir, `${dir}${CONFIG_SFX}`)
       fs.writeFileSync(configFile, '', { flag: 'w' })
 
       const sampleConfigFile = path.resolve(outputDir, `${dir}.config.sample.ini`)
@@ -80,6 +80,7 @@ async function main () {
         const dirPath = path.dirname(outputFilePath)
         fs.mkdirSync(dirPath, { recursive: true })
         const replaces = replacer.default(filePath, outputFilePath)
+        if (configFile.includes('abstractions')) { console.log('RAICHU', configFile, filePath, replaces) }
 
         appendToConfig(getConstant('ALLCONFIGPATH'), replaces, getConfigSampleAppendLine)
         appendToConfig(configFile, replaces, getConfigAppendLine)
@@ -96,15 +97,24 @@ function appendToConfig (configFilePath, replaces, appendLineFunc) {
   replaces.forEach(replace => {
     if (!replace.replace) { return }
 
-    if (removeBeforeAndAfterMustaches(replace) && leaveOnlyConfig(replace) && !set.has(replace.replace)) {
-      set.add(replace.replace)
-      const appendLine = appendLineFunc(replace)
-      fs.appendFileSync(configFilePath, appendLine, 'utf8')
-      console.log(`Appended ${replace.replace} key to file: ${configFilePath}`)
-    } else {
-      console.log(`${replace.replace} key already exists in file: ${configFilePath}`)
+    // if (removeBeforeAndAfterMustaches(replace) && leaveOnlyConfig(replace) && !set.has(replace.replace)) {
+    if (removeBeforeAndAfterMustaches(replace)) {
+      if (leaveOnlyConfig(replace) && !set.has(replace.replace)) {
+        set.add(replace.replace)
+        const appendLine = appendLineFunc(replace)
+        fs.appendFileSync(configFilePath, appendLine, 'utf8')
+        console.log(`Appended ${replace.replace} key to file: ${configFilePath}`)
+      } else {
+        // console.log(`${replace.replace} key already exists in file: ${configFilePath}`)
+      }
+      putMustachesBack(replace)
     }
   })
+}
+function putMustachesBack (replace) {
+  if (replace.replace) {
+    replace.replace = '{{' + replace.replace + '}}'
+  }
 }
 // also removes mustaches
 function removeBeforeAndAfterMustaches (replace) {

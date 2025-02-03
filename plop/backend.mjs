@@ -18,8 +18,6 @@ function backendFactory (plop) {
     })
   })
 
-  setPlopHelpers(plop)
-
   return {
     description: 'Generate a C# solution with options for sample config or custom input',
     prompts: [
@@ -164,26 +162,6 @@ function backendFactory (plop) {
       ]
     }
   }
-}
-
-function setPlopHelpers (plop) {
-  plop.setHelper('UC', function (text) {
-    if (!text) return text
-
-    return text.toUpperCase()
-  })
-
-  plop.setHelper('LC', function (text) {
-    if (!text) return text
-
-    return text.toLowerCase()
-  })
-
-  plop.setHelper('CC', function (text) {
-    if (!text) return text
-    if (text.length <= 1) return text.toLowerCase()
-    return text.charAt(0).toLowerCase() + text.slice(1)
-  })
 }
 
 export default backendFactory

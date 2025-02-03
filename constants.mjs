@@ -9,6 +9,7 @@ export const APPLICATION_PROJECT_SFX = 'Application'
 export const APPLICATION_ABSTRACTION_PROJECT_SFX = 'Application.Abstractions'
 export const DOMAIN_PROJECT_SFX = 'Domain'
 export const INFRA_PROJECT_SFX = 'Infra'
+export const APPLICATION_UNIT_TESTS_PROJECT_SFX = 'Application.UnitTests'
 
 export const SERVICE_FOLDER = 'services'
 

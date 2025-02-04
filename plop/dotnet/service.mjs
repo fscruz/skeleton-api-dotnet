@@ -157,9 +157,9 @@ function dotnetServiceFactory (plop) {
         configData = { ...sampleConfig }
       } else {
         // Use the answers from the prompts
-        configData = questions.reduce((total, current) => {
-          total = { ...total, [current.name]: answers[current.name] }
-          return total
+        configData = questions.reduce((acc, current) => {
+          acc[current.name] = answers[current.name]
+          return acc
         }, {})
         answers.config = configData
       }

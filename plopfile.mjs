@@ -2,6 +2,7 @@
 // import dotnetPluginFactory from './plop/dotnet/plugin.mjs'
 import backendFactory from './plop/backend.mjs'
 import dotnetServiceFactory from './plop/dotnet/service.mjs'
+import { toCamelCase } from './plop/stringHelper.mjs'
 // import dotnetWebApiFactory from './plop/dotnet/webapi.mjs'
 
 function setPlopHelpers (plop) {
@@ -18,9 +19,7 @@ function setPlopHelpers (plop) {
   })
 
   plop.setHelper('CC', function (text) {
-    if (!text) return text
-    if (text.length <= 1) return text.toLowerCase()
-    return text.charAt(0).toLowerCase() + text.slice(1)
+    return toCamelCase(text)
   })
 }
 

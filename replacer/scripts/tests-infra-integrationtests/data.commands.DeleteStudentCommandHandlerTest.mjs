@@ -16,7 +16,7 @@ const replaces = [
   {
       original: 'Students',
       find: /students/g,
-      replace: '{{CC RESOURCE_TYPE_NAMEP}}'
+      replace: '{{CC RESOURCE_TYPE_NAME_P}}'
   },
   {
     original: 'Student',

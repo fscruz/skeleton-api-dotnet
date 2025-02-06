@@ -175,7 +175,7 @@ function dotnetServiceFactory (plop) {
           ],
           base: 'plop/templates',
           data: configData, // Use the selected data for replacements
-          force: true
+          skipIfExists: true
         },
         {
           type: 'loadConfig'

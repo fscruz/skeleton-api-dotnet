@@ -3,6 +3,7 @@
 import backendFactory from './plop/backend.mjs'
 import dotnetServiceFactory from './plop/dotnet/service.mjs'
 import { toCamelCase } from './plop/stringHelper.mjs'
+import sqlPQueryFactory from "./plop/sql/pquery.mjs";
 // import dotnetWebApiFactory from './plop/dotnet/webapi.mjs'
 
 function setPlopHelpers (plop) {
@@ -40,4 +41,5 @@ Choose your destiny:
   plop.setGenerator('service (.net)', dotnetServiceFactory(plop))
   // plop.setGenerator('web api (.net)', dotnetWebApiFactory(plop))
   plop.setGenerator('backend', backendFactory(plop))
+  plop.setGenerator('pquery (sql)', sqlPQueryFactory(plop))
 }

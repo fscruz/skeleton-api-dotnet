@@ -153,7 +153,6 @@ function dotnetServiceFactory (plop) {
       if (answers[CONFIG_CHOICE] === USE_SAMPLE_CONFIG) {
         // Load the sample config from the sample-config.ini file
         const sampleConfig = ini.parse(readFileSync(ALLCONFIGPATH, 'utf-8'))
-        // const sampleConfig = ini.parse(readFileSync(ALLCONFIGPATHH), 'utf-8'))
         configData = { ...sampleConfig }
       } else {
         // Use the answers from the prompts

@@ -20,3 +20,6 @@ export const CONFIG_CHOICE = 'configChoice'
 export const REPLACER_OUTPUT_DIRECTORY = 'templates'
 export const PLOP_DIRECTORY = 'plop'
 export const CONFIG_SFX = '.config.ini'
+
+
+export const SQL_DIRECTORY = 'sql'
